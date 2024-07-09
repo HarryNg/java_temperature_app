@@ -2,13 +2,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    static int tempConvert(int temp, boolean isC){
+    static double tempConvert(double temp, boolean isC){
         if(isC){
             temp = temp * 9/5 + 32;
         }else {
             temp = (temp - 32) * 5/9;
         }
-        return temp;
+
+        return Math.floor(temp*100)/100;
     }
 
     public static void main(String[] args) {
