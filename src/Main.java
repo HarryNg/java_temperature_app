@@ -1,41 +1,28 @@
 import java.util.Scanner;
-
+import temperatureconverter.TemperatureConverterMain;
 public class Main {
-
-    static double tempConvert(double temp, boolean isC){
-        if(isC){
-            temp = temp * 9/5 + 32;
-        }else {
-            temp = (temp - 32) * 5/9;
-        }
-        return Math.floor(temp*100)/100;
-    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter a temperature value and its unit of measurement (F or C): ");
         Boolean start = true;
+
+        System.out.println("Welcome to the Main Application");
+        System.out.println("1: Temperature Converter");
+        System.out.println("2: Student Grade Management");
+        System.out.println("Type 'exit' to terminate");
+
         do {
+            System.out.print("[Main] Select an option: ");
             String[] query = scanner.nextLine().split(" ");
             String firstInput = query[0];
             switch(firstInput){
                 case "exit" -> {
-                    System.out.println("Program terminated. \n ```");
+                    System.out.println("[Main] Program terminated. \n ```");
                     start = false;
                 }
-                default -> {
-                    boolean isNumeric = firstInput.chars().allMatch( Character::isDigit );
-                    if(query.length == 2 && isNumeric && query[1].length()<2){
-                        String secondInput = query[1];
-                        switch (secondInput.toLowerCase()){
-                            case "c" -> System.out.println(firstInput+" C = "+ tempConvert(Integer.parseInt(firstInput), true) +" F");
-                            case "f" -> System.out.println(firstInput+" F = "+ tempConvert(Integer.parseInt(firstInput), false) +" C");
-                            default ->  System.out.println("Invalid input. Please enter a valid temperature value and its unit of measurement (F or C):");
-                        }
-                    }else {
-                        System.out.println("Invalid input. Please enter a valid temperature value and its unit of measurement (F or C):");
-                    }
-                }
+                case "1" -> TemperatureConverterMain.run();
+                default -> System.out.println("Invalid option. Please enter 1, 2, or 'exit'. ");
             }
         }while (start);
     }
