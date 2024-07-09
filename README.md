@@ -9,9 +9,8 @@ You are tasked to develop a temperature converter program in Java. The program w
 3. Handle invalid user inputs by displaying an error message and prompting the user to enter valid inputs.
 4. Write a function called `tempConvert` to perform the temperature conversions.
 5. Use `switch` statement to determine which conversion function to use based on the user's input for the temperature scale.
-6. Use type pattern in the `switch` statement to validate user's input.
-7. Application should run continuously, but have option to terminate the program.
-8. Upload a screenshot in the PR of testing application in your terminal.
+6. Application should run continuously, but have option to terminate the program.
+7. Upload a screenshot in the PR of testing application in your terminal.
 
 ## Examples
 
