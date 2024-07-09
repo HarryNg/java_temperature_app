@@ -9,9 +9,8 @@ You are tasked to develop a temperature converter program in Java. The program w
 3. Handle invalid user inputs by displaying an error message and prompting the user to enter valid inputs.
 4. Write a function called `tempConvert` to perform the temperature conversions.
 5. Use `switch` statement to determine which conversion function to use based on the user's input for the temperature scale.
-6. Use type pattern in the `switch` statement to validate user's input.
-7. Application should run continuously, but have option to terminate the program.
-8. Upload a screenshot in the PR of testing application in your terminal.
+6. Application should run continuously, but have option to terminate the program.
+7. Upload a screenshot in the PR of testing application in your terminal.
 
 ## Examples
 
@@ -34,4 +33,37 @@ Please enter a temperature value and its unit of measurement (F or C):
 exit
 
 Program terminated.
-```
+
+````
+---
+### Student Grade Management System (Optional)
+
+You are tasked with developing a Student Grade Management System. The program will allow users (teachers) to manage student information and grades. The system should be able to perform the following tasks:
+
+#### Requirements
+1. **Add New Student**:
+    - Prompt the user to input student details (ID, name, and age).
+    - Store the student details in a collection.
+
+2. **Add Grades**:
+    - Prompt the user to input the student ID and the course name.
+    - Allow the user to input multiple grades for a student in a course.
+    - Store the grades in a way that they can be retrieved for calculations.
+
+3. **Calculate Average Grade**:
+    - Calculate the average grade for a student in a specific course.
+
+4. **Display Student Information**:
+    - Display the details of a student along with their grades and average grades for each course.
+
+5. **Save to File**:
+    - Save all student information and their grades to a file.
+
+6. **Load from File**:
+    - Load student information and their grades from a file.
+
+7. **Handle Invalid Inputs**:
+    - Display appropriate error messages for invalid inputs and prompt the user to enter valid data.
+
+8. **Exit Program**:
+    - Provide an option to exit the program.
