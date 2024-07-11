@@ -1,9 +1,6 @@
 package studentgrade;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentGradeMain {
     private static final String EXIT_COMMAND = "exit";
@@ -24,44 +21,85 @@ public class StudentGradeMain {
     Operation completed. Please pick another options to continue or 'exit' to terminate program. 
     1: Add Student 2: Add grades 3: Average 4: Display student info 5: Save to file 6: Load exit: Exit.
     """;
+    public static void allowExit(String str){
+        if(str.equalsIgnoreCase(EXIT_COMMAND)){
+            System.out.println("Program is terminated. \n");
+            System.exit(0);
+        }
+    }
     public static String getStudentDetail(Scanner scanner, String prompt){
         while(true){
             System.out.println(prompt);
             String input = scanner.nextLine().trim();
-            if(input.equalsIgnoreCase(EXIT_COMMAND)){
-                System.out.println("Program is terminated. \n");
-                System.exit(0);
-            }
+            allowExit(input);
             return input;
+        }
+    }
+    public static List<Double> getGrades(Scanner scanner, String prompt){
+        while(true){
+            System.out.println(prompt);
+            String[] inputs = scanner.nextLine().trim().split(" ");
+            String input = inputs[0];
+            allowExit(input);
+
+            try{
+                List<Double> grades = new ArrayList<>();
+                for (String grade:inputs){
+                    grades.add(Double.parseDouble(grade));
+                }
+                return grades;
+            }catch (NumberFormatException e){
+                System.out.println(INVALID_INPUT_MESSAGE);
+            }
+        }
+    }
+    private static class Course{
+        String courseName;
+
+        public Course(String courseName){
+            this.courseName = courseName;
+        }
+
+        @Override
+        public String toString(){
+            return courseName;
         }
     }
     private static class Student{
         int id;
         String name;
         int age;
-        String course;
-        double grade;
+        Map<Course, List<Double>> grades;
 
         public Student(int id, String name, int age){
             this.id = id;
             this.name = name;
             this.age = age;
-            this.course = "Not enrolled in any courses";
-            this.grade = Double.NaN;
+            this.grades = new HashMap<>();
         }
 
         @Override
         public String toString(){
-            return "ID: "+ id + " Name: " + name + " Age: " +age + " Courses: "+course+ " Grade: "+grade;
+            return "ID: "+ id + " Name: " + name + " Age: " +age + " Grade: "+grades;
         }
 
-        public void addGrade(String course, double grade){
-            this.course = course;
-            this.grade = grade;
+        public void addGrade(Course course, double grade){
+            if(!grades.containsKey(course)){
+                grades.put(course, new ArrayList<>());
+            }
+            grades.get(course).add(grade);
+        }
+        public void addGrades(Course course, List<Double> grade){
+            if(!grades.containsKey(course)){
+                grades.put(course, new ArrayList<>());
+            }
+            grades.get(course).addAll(grade);
         }
     }
 
     private static Map<Integer,Student> students = new HashMap<>();
+    private static Map<String,Course> courses = new HashMap<>();
+
     private static boolean isStudent(int id){
         return students.containsKey(id);
     }
@@ -79,12 +117,16 @@ public class StudentGradeMain {
         }else {
             System.out.println(INPUT_NOT_FOUND_MESSAGE);
         }
-
     }
 
-    private static void addGrade(int id, String course, double grade){
+    private static void addGrade(int id, String courseName, List<Double> grade){
         if(isStudent(id)){
-            students.get(id).addGrade(course,grade);
+            Course course = courses.get(courseName);
+            if(course==null){
+                course = new Course(courseName);
+                courses.put(courseName, course);
+            }
+            students.get(id).addGrades(course,grade);
             students.get(id).toString();
             System.out.println(SUCCESS_PROMPT);
         }else {
@@ -117,9 +159,9 @@ public class StudentGradeMain {
                 case "2" -> {
                     //    Prompt the user to input the student ID and the course name.
                     int id = Integer.parseInt((getStudentDetail(scanner,STUDENT_ID_PROMPT )));
-                    String course = getStudentDetail(scanner,"Please enter course name ");
-                    double grade = Double.parseDouble(getStudentDetail(scanner,"Please enter student grade "));
-                    addGrade(id,course,grade);
+                    String courseName = getStudentDetail(scanner,"Please enter course name ");
+                    List<Double> grade = getGrades(scanner,"Please enter student grade ");
+                    addGrade(id,courseName,grade);
 
                 }
                 case "4" -> {
